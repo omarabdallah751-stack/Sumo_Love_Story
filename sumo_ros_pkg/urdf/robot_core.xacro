@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- ================= Properties (Wait for Mechanical Team) ================= -->
+    <xacro:property name="chassis_mass" value="5.0" />
+    <xacro:property name="wheel_radius" value="0.05" />
+    <!-- Add more properties here later -->
+
+    <!-- ================= Materials ================= -->
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+    <material name="red">
+        <color rgba="1 0 0 1"/>
+    </material>
+
+    <!-- ================= Inertia Macros ================= -->
+    <xacro:macro name="inertial_box" params="mass x y z *origin">
+        <inertial>
+            <xacro:insert_block name="origin"/>
+            <mass value="${mass}" />
+            <inertia ixx="${(1/12) * mass * (y*y+z*z)}" ixy="0.0" ixz="0.0"
+                     iyy="${(1/12) * mass * (x*x+z*z)}" iyz="0.0"
+                     izz="${(1/12) * mass * (x*x+y*y)}" />
+        </inertial>
+    </xacro:macro>
+
+    <xacro:macro name="inertial_cylinder" params="mass length radius *origin">
+        <inertial>
+            <xacro:insert_block name="origin"/>
+            <mass value="${mass}" />
+            <inertia ixx="${(1/12) * mass * (3*radius*radius + length*length)}" ixy="0.0" ixz="0.0"
+                     iyy="${(1/12) * mass * (3*radius*radius + length*length)}" iyz="0.0"
+                     izz="${(1/2) * mass * (radius*radius)}" />
+        </inertial>
+    </xacro:macro>
+
+    <!-- ================= Base Links ================= -->
+    <!-- Base Footprint (Virtual link on the ground) -->
+    <link name="base_footprint"></link>
+
+    <joint name="base_footprint_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Base Link (Chassis Center) -->
+    <link name="base_link">
+        <!-- Mechanical team will add visual and collision tags here -->
+    </link>
+
+</robot>
