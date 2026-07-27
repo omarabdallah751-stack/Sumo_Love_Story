@@ -72,6 +72,18 @@ Each camera is attached to the chassis using fixed joints and positioned at diff
 
 This configuration provides wide-angle coverage around the robot and is intended to support future computer vision algorithms.
 
+### Active ROS / Gazebo Topics
+
+The cameras publish live image streams and calibration information to both ROS 2 and Gazebo on the following topics:
+
+- `/camera0/image_raw`
+- `/camera0/camera_info`
+- `/camera1/image_raw`
+- `/camera1/camera_info`
+- `/camera2/image_raw`
+- `/camera2/camera_info`
+- `/camera3/image_raw`
+- `/camera3/camera_info`
 ---
 
 ## Drivetrain
@@ -100,7 +112,6 @@ Wheel
     
 - Continuous joints allowing forward and reverse motion
     
-
 ---
 
 ## Wheels
@@ -112,8 +123,49 @@ Each wheel has the following properties:
 - Connected through a continuous joint
     
 - Independently driven
-    
+  
+---
 
+# Robot Movement System (Custom X-Drive Controller)
+
+The robot uses an **X-drive (Mecanum)** configuration where the wheels are mounted at **45°**. This allows omnidirectional motion including forward, backward, lateral, diagonal, and rotational movement.
+
+Since the standard Gazebo differential and skid-steer drive plugins do not directly support this configuration, a custom **ROS 2 Python node** (`keyboard_xdrive_node`) was implemented to perform the required kinematic calculations.
+
+## How It Works
+
+The controller receives user keyboard commands and converts the desired robot motion into individual wheel angular velocities using the kinematic equations of an X-drive platform.
+
+The calculations are based on:
+
+- Wheel radius: **0.033 m**
+- Robot geometry (wheel offsets)
+- Desired linear velocity (X, Y)
+- Desired angular velocity (Z)
+
+The computed wheel velocities are then published as `std_msgs/Float64` commands to each wheel controller.
+
+## Active Wheel Command Topics
+
+- `/wheel_fl_cmd`
+- `/wheel_fr_cmd`
+- `/wheel_bl_cmd`
+- `/wheel_br_cmd`
+
+## Keyboard Controls
+
+| Key | Action |
+|------|--------|
+| **W** | Move Forward |
+| **S** | Move Backward |
+| **A** | Strafe Left |
+| **D** | Strafe Right |
+| **Q** | Rotate Counter-Clockwise |
+| **R** | Rotate Clockwise |
+| **Space** | Stop Robot |
+
+This custom controller provides accurate holonomic motion and serves as the software interface between the user's velocity commands and the four independently driven wheels.
+    
 ### Wheel Design
 
 ---
@@ -176,16 +228,12 @@ This modular architecture allows perception and motion planning to be integrated
 Install the following ROS 2 packages before running the project:
 
 - ROS 2 (Humble, Iron, or Jazzy)
-    
+- Gazebo Harmonic (or compatible version)
 - `xacro`
-    
 - `robot_state_publisher`
-    
 - `joint_state_publisher_gui`
-    
 - `rviz2`
     
-
 ---
 
 # Project Structure
@@ -286,5 +334,7 @@ The robot can be visualized in **RViz2**, where you can:
 
 <img width="3408" height="2130" alt="Screenshot from 2026-07-27 10-19-57" src="https://github.com/user-attachments/assets/cdaa65ae-5c57-488e-a8e0-9c8e3d2bec8d" />
 <img width="2948" height="1574" alt="image" src="https://github.com/user-attachments/assets/da1773e8-1b15-4e33-9b0b-342dd9a5def0" />
+<img width="3408" height="2130" alt="Screenshot from 2026-07-28 01-09-49" src="https://github.com/user-attachments/assets/f88e1ac3-505a-41f8-be8b-15e4a1fb8c94" />
+
 
     
