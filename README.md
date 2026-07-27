@@ -1,45 +1,277 @@
 # Sumo Robot URDF Description
 
-This repository contains the structural description files (URDF/XACRO) for a Sumo Robot. The project is designed using a **Modular Architecture** (split across multiple files) to ensure clean code, easy maintenance, and component reusability.
+## Project Overview
+
+This repository contains the structural description files (**URDF/XACRO**) for a Sumo Robot operating in a **ROS 2** environment. The project follows a modular architecture, where the robot is divided into multiple Xacro files representing the chassis, drivetrain, wheels, sensors, and attack mechanism. This structure improves readability, maintainability, and reusability while simplifying future modifications.
 
 ---
 
-## File Structure (Modular Design)
+## Team Members
 
-The robot's body and components are divided into 4 primary modules, which are seamlessly integrated into the top-level main file:
-
-* **`sumo_robot.xacro` (Main File)**: The top-level file that brings the entire robot together. It contains all the dynamic math constants, origin coordinates, and offsets. It establishes the `base_footprint_link`, connects it to the main chassis, and includes all the sub-modules.
-* **`base_components.xacro`**: Defines the `frame_link` (the core physical body of the robot). It also houses the sensors and components attached directly to the chassis, such as the Lidar, Servo motor, Axe (weapon), and 4 peripheral cameras.
-* **`motors_couplers.xacro`**: Dedicated to defining the 4 drive motors attached to the frame, as well as the mechanical couplers that transmit motion from the motors to the wheels.
-* **`wheels.xacro`**: Contains the physical and visual properties of the 4 wheels. Each wheel is dynamically jointed to its corresponding coupler.
+|Name|
+|---|
+|Mohamed Khairy|
+|Yousef Aamer|
+|Omar Abdallah Ramadan|
+|Rodaina Sabry|
+|Mai Ahmed|
+|Mohamed Elmansy|
+|Eman|
 
 ---
 
-## Kinematic Chain (TF Tree)
+## Robot Architecture
 
-The coordinate frame tree (TF Tree) has been optimized to streamline the robot's movement in the ROS environment. The `frame_link` acts as the primary physical center of the robot, directly connected to the ground projection (`base_footprint_link`).
+### Chassis
 
-Here is the hierarchical Parent-to-Child joint relationships:
+The main body of the robot is represented by **`frame_link`**, which serves as the parent link for all mechanical and sensor components.
+
+- **Mass:** **8.56573 kg**
+    
+- Houses all major subsystems including motors, cameras, Lidar, and the attack mechanism.
+    
+
+### Chassis Design
+
+---
+
+## Sensors
+
+### Lidar
+
+A Lidar sensor is mounted on the upper section of the chassis using a fixed joint.
+
+It provides environmental scanning for obstacle detection, localization, and future autonomous navigation.
+
+---
+
+### Vision System
+
+The robot includes **four cameras**:
+
+- `camera_link`
+    
+- `camera1_link`
+    
+- `camera2_link`
+    
+- `camera3_link`
+    
+
+Each camera is attached to the chassis using fixed joints and positioned at different offsets around the frame.
+
+This configuration provides wide-angle coverage around the robot and is intended to support future computer vision algorithms.
+
+---
+
+## Drivetrain
+
+The robot uses a **four-wheel independent drive system**.
+
+Each side consists of:
+
+```
+Frame
+   │
+Motor
+   │
+Coupler
+   │
+Wheel
+```
+
+### Features
+
+- Four independent drive motors
+    
+- Mechanical couplers for power transmission
+    
+- Four continuously rotating wheels
+    
+- Continuous joints allowing forward and reverse motion
+    
+
+---
+
+## Wheels
+
+Each wheel has the following properties:
+
+- **Mass:** **123.31 g**
+    
+- Connected through a continuous joint
+    
+- Independently driven
+    
+
+### Wheel Design
+
+---
+
+# Attack / Defense Mechanism
+
+The robot's primary offensive mechanism is a **servo-driven striking axe**.
+
+### Features
+
+- Axe Mass: **148.77 g**
+    
+- Controlled by a dedicated servo
+    
+- Servo represented by `servo_link`
+    
+- Axe represented by `axe_link`
+    
+- Connected using a **revolute joint**
+    
+- Rotates about the **X-axis**
+    
+- Motion constrained by joint limits
+    
+
+### Axe Design
+<img width="1387" height="805" alt="Screenshot 2026-07-25 204823" src="https://github.com/user-attachments/assets/11d6e354-dcdb-419d-8d08-c004109da918" />
+
+
+### Complete Assembly
+<img width="722" height="621" alt="image" src="https://github.com/user-attachments/assets/8e7e2653-cf71-439b-89d2-7722c40f33ac" />
+
+---
+
+# Future Autonomous Combat
+
+The hardware has been designed to support future autonomous combat algorithms.
+
+The four-camera vision system can provide nearly **360° environmental coverage**, allowing computer vision models (such as **YOLO** or custom **OpenCV** pipelines) to detect and track opponent robots.
+
+A future control node can:
+
+1. Detect the opponent.
+    
+2. Estimate its position and distance.
+    
+3. Verify that it is within the optimal striking range.
+    
+4. Publish commands to the `axe_joint`.
+    
+5. Trigger the servo automatically for a precisely timed attack.
+    
+
+This modular architecture allows perception and motion planning to be integrated without modifying the robot's mechanical description.
+
+---
+
+# Software Requirements
+
+Install the following ROS 2 packages before running the project:
+
+- ROS 2 (Humble, Iron, or Jazzy)
+    
+- `xacro`
+    
+- `robot_state_publisher`
+    
+- `joint_state_publisher_gui`
+    
+- `rviz2`
+    
+
+---
+
+# Project Structure
 
 ```text
-base_footprint_link (Root)
- └── frame_link (Main Chassis)
-      ├── lidar_link (Fixed)
-      ├── servo_link (Fixed)
-      │    └── axe_link (Revolute)
-      ├── camera_link (Fixed)
-      ├── camera1_link (Fixed)
-      ├── camera2_link (Fixed)
-      ├── camera3_link (Fixed)
-      ├── motor_link (Fixed)
-      │    └── coupler_link (Fixed)
-      │         └── wheel_link (Continuous)
-      ├── motor1_link (Fixed)
-      │    └── coupler1_link (Fixed)
-      │         └── wheel1_link (Continuous)
-      ├── motor2_link (Fixed)
-      │    └── coupler2_link (Fixed)
-      │         └── wheel2_link (Continuous)
-      └── motor3_link (Fixed)
-           └── coupler3_link (Fixed)
-                └── wheel3_link (Continuous)
+sumo_description/
+├── launch/
+├── meshes/
+├── rviz/
+├── urdf/
+│   ├── main.xacro
+│   ├── frame.xacro
+│   ├── motors.xacro
+│   ├── wheels.xacro
+│   ├── cameras.xacro
+│   ├── lidar.xacro
+│   └── axe.xacro
+└── package.xml
+```
+
+---
+
+# Build
+
+```bash
+cd ~/ROS/Project
+
+colcon build --packages-select sumo_description
+
+source install/setup.bash
+```
+
+---
+
+# Launch
+
+Launch the robot visualization using:
+
+```bash
+ros2 launch sumo_description <your_launch_file>.launch.py
+```
+
+The launch file automatically:
+
+- Loads the URDF/Xacro model
+    
+- Starts `robot_state_publisher`
+    
+- Starts `joint_state_publisher_gui`
+    
+- Opens RViz with the robot model
+    
+
+---
+
+# TF Tree
+
+```
+frame_link
+├── lidar_link
+├── camera_link
+├── camera1_link
+├── camera2_link
+├── camera3_link
+├── motor_FL
+│   └── coupler_FL
+│       └── wheel_FL
+├── motor_FR
+│   └── coupler_FR
+│       └── wheel_FR
+├── motor_RL
+│   └── coupler_RL
+│       └── wheel_RL
+├── motor_RR
+│   └── coupler_RR
+│       └── wheel_RR
+└── servo_link
+    └── axe_link
+```
+
+---
+
+# Visualization
+
+The robot can be visualized in **RViz2**, where you can:
+
+- Inspect the complete TF tree
+    
+- Test wheel rotation
+    
+- Control the axe joint
+    
+- Verify camera and Lidar placement
+    
+- Validate the robot geometry before simulation
+
+<img width="3408" height="2130" alt="Screenshot from 2026-07-27 10-19-57" src="https://github.com/user-attachments/assets/cdaa65ae-5c57-488e-a8e0-9c8e3d2bec8d" />
+
+    
