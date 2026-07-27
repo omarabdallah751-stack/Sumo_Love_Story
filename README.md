@@ -15,9 +15,9 @@ The robot's body and components are divided into 4 primary modules, which are se
 
 ---
 
-## Kinematic Chain (New TF Tree)
+## Kinematic Chain (TF Tree)
 
-The coordinate frame tree (TF Tree) has been optimized to streamline the robot's movement in the ROS environment. The redundant, dummy `base_link` has been entirely removed. The `frame_link` now acts as the primary physical center of the robot, directly connected to the ground projection (`base_footprint_link`).
+The coordinate frame tree (TF Tree) has been optimized to streamline the robot's movement in the ROS environment. The `frame_link` acts as the primary physical center of the robot, directly connected to the ground projection (`base_footprint_link`).
 
 Here is the hierarchical Parent-to-Child joint relationships:
 
