@@ -195,9 +195,9 @@ sumo_description/
 ├── launch/
 │   ├── display.launch.xml
 │   ├── gazebo.launch.xml
-├── meshes/
-├── rviz/
+├── meshes_fixed/
 │   ├── all STLs
+├── rviz/
 ├── urdf/
 │   ├── main.xacro
 │   ├── base_components.xacro
