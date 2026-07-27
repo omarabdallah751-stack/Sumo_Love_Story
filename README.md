@@ -19,7 +19,17 @@ This repository contains the structural description files (**URDF/XACRO**) for a
 |Eman|
 
 ---
+## Mechanical Design Summary
 
+The robot features a rigid **octagonal chassis** constructed from a **20 × 20 mm T-slot aluminum frame**, reinforced with **steel panels** to provide high structural strength, durability, and impact resistance during Sumo competitions.
+
+Its combat system combines both offensive and defensive mechanisms. A **front servo-actuated blade** delivers rapid attacking motions, while **two fixed side attack blades** increase the likelihood of making contact with opponents from multiple directions. For additional protection, a **rear electric defense module** helps shield the robot from attacks approaching from behind.
+
+To enhance situational awareness, the robot incorporates a protected **four-camera vision system** that provides near **360° environmental coverage**, supporting future computer vision and autonomous targeting algorithms.
+
+Mobility is achieved using a **four-wheel Mecanum drive** with rollers mounted at **45°**, allowing the robot to move omnidirectionally. This configuration enables precise lateral, diagonal, rotational, and forward/backward motion, providing excellent maneuverability and positioning during combat.
+
+---
 ## Robot Architecture
 
 ### Chassis
