@@ -5,7 +5,7 @@
   <!-- MOTORS                                     -->
   <!-- ========================================== -->
   
-<xacro:macro name="motor_properties" params="mesh_file origin_xyz">
+  <xacro:macro name="motor_properties" params="mesh_file origin_xyz">
     <collision>
       <origin xyz="${origin_xyz}" rpy="0 0 0"/>
       <geometry><mesh filename="package://sumo_description/meshes_fixed/${mesh_file}"/></geometry>
@@ -33,7 +33,7 @@
     <xacro:motor_properties mesh_file="Motor.stl" origin_xyz="${-m0_j_x} ${-m0_j_y} ${-m0_j_z}"/>
   </link>
   <joint name="motor_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="frame_link"/>
     <child link="motor_link"/>
     <origin xyz="${m0_j_x} ${m0_j_y} ${m0_j_z}" rpy="0 0 0"/>
   </joint>
@@ -48,7 +48,7 @@
     <xacro:motor_properties mesh_file="Motor1.stl" origin_xyz="${-m1_j_x} ${-m1_j_y} ${-m1_j_z}"/>
   </link>
   <joint name="motor1_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="frame_link"/>
     <child link="motor1_link"/>
     <origin xyz="${m1_j_x} ${m1_j_y} ${m1_j_z}" rpy="0 0 0"/>
   </joint>
@@ -63,7 +63,7 @@
     <xacro:motor_properties mesh_file="Motor2.stl" origin_xyz="${-m2_j_x} ${-m2_j_y} ${-m2_j_z}"/>
   </link>
   <joint name="motor2_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="frame_link"/>
     <child link="motor2_link"/>
     <origin xyz="${m2_j_x} ${m2_j_y} ${m2_j_z}" rpy="0 0 0"/>
   </joint>
@@ -78,7 +78,7 @@
     <xacro:motor_properties mesh_file="Motor3.stl" origin_xyz="${-m3_j_x} ${-m3_j_y} ${-m3_j_z}"/>
   </link>
   <joint name="motor3_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="frame_link"/>
     <child link="motor3_link"/>
     <origin xyz="${m3_j_x} ${m3_j_y} ${m3_j_z}" rpy="0 0 0"/>
   </joint>

@@ -40,7 +40,7 @@
   <xacro:property name="w3_m_x" value="-0.12352"/> <xacro:property name="w3_m_y" value="-0.10955"/> <xacro:property name="w3_m_z" value="0.095"/>
 
   <!-- ========================================== -->
-  <!-- Cameras Joints             -->
+  <!-- Cameras Joints                             -->
   <!-- ========================================== -->
   <xacro:property name="c0_x" value="0.10098"/> <xacro:property name="c0_y" value="-0.11001"/> <xacro:property name="c0_z" value="-0.005098"/> 
   <xacro:property name="c1_x" value="-0.095221"/> <xacro:property name="c1_y" value="0.087629"/> <xacro:property name="c1_z" value="-0.005301"/> 
@@ -56,9 +56,14 @@
   <material name="black"><color rgba="0.05 0.05 0.05 1.0"/></material>
   <material name="blue"><color rgba="0.1 0.1 0.8 1.0"/></material>
 
-  <!-- Base Link -->
-  <link name="base_link"></link>
+  <!-- Footprint Link -->
   <link name="base_footprint_link"/>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint_link"/>
+    <child link="frame_link"/>
+    <origin xyz="0 0 0.095" rpy="0 0 0"/>
+  </joint>
 
   <!-- ========================================== -->
   <!-- INCLUDES FOR OTHER XACRO FILES             -->
@@ -66,11 +71,5 @@
   <xacro:include filename="base_components.xacro"/>
   <xacro:include filename="motors_couplers.xacro"/>
   <xacro:include filename="wheels.xacro"/>
-
-  <joint name="base_footprint_joint" type="fixed">
-    <parent link="base_footprint_link"/>
-    <child link="base_link"/>
-    <origin xyz="0 0 0.095" rpy="0 0 0"/>
-  </joint>
 
 </robot>

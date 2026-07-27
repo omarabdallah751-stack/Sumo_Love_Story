@@ -25,13 +25,7 @@
         iyz="0.000890883"
         izz="0.167411472"/>
     </inertial>
-
   </link>
-  <joint name="frame_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="frame_link"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint>
 
   <!-- ========================================== -->
   <!-- LIDAR & SERVO                              -->
@@ -57,10 +51,9 @@
           iyz="0.00000037954"
           izz="0.00006152779"/>
     </inertial>
-
   </link>
   <joint name="lidar_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="frame_link"/>
     <child link="lidar_link"/>
     <origin xyz="0 0.093257 0.10115" rpy="0 0 0"/>
   </joint>
@@ -75,10 +68,9 @@
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry><mesh filename="package://sumo_description/meshes_fixed/servo.stl"/></geometry>
     </collision>
-
   </link>
   <joint name="servo_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="frame_link"/>
     <child link="servo_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
@@ -107,7 +99,6 @@
           iyz="0.000003236" 
           izz="0.000929424"/>
     </inertial>
-
   </link>
   <joint name="axe_joint" type="revolute">
     <parent link="servo_link"/>
@@ -142,10 +133,9 @@
           iyz="0.00000189933"
           izz="0.00002915852"/>
     </inertial>
-
   </link>
   <joint name="camera_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="frame_link"/>
     <child link="camera_link"/>
     <origin xyz="${c0_x} ${c0_y} ${c0_z}" rpy="0 0 0"/>
   </joint>
@@ -172,10 +162,9 @@
           iyz="0.00000189933"
           izz="0.00002915852"/>
     </inertial>
-
   </link>
   <joint name="camera1_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="frame_link"/>
     <child link="camera1_link"/>
     <origin xyz="${c1_x} ${c1_y} ${c1_z}" rpy="0 0 0"/>
   </joint>
@@ -202,10 +191,9 @@
           iyz="0.00000189933"
           izz="0.00002915852"/>
     </inertial>
-
   </link>
   <joint name="camera2_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="frame_link"/>
     <child link="camera2_link"/>
     <origin xyz="${c2_x} ${c2_y} ${c2_z}" rpy="0 0 0"/>
   </joint>
@@ -234,7 +222,7 @@
     </inertial>
   </link>
   <joint name="camera3_joint" type="fixed">
-    <parent link="base_link"/>
+    <parent link="frame_link"/>
     <child link="camera3_link"/>
     <origin xyz="${c3_x} ${c3_y} ${c3_z}" rpy="0 0 0"/>
   </joint>
