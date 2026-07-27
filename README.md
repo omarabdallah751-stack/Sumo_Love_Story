@@ -283,5 +283,6 @@ The robot can be visualized in **RViz2**, where you can:
 - Validate the robot geometry before simulation
 
 <img width="3408" height="2130" alt="Screenshot from 2026-07-27 10-19-57" src="https://github.com/user-attachments/assets/cdaa65ae-5c57-488e-a8e0-9c8e3d2bec8d" />
+<img width="2948" height="1574" alt="image" src="https://github.com/user-attachments/assets/da1773e8-1b15-4e33-9b0b-342dd9a5def0" />
 
     
