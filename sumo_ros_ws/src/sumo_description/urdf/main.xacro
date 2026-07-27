@@ -71,5 +71,6 @@
   <xacro:include filename="base_components.xacro"/>
   <xacro:include filename="motors_couplers.xacro"/>
   <xacro:include filename="wheels.xacro"/>
+  <xacro:include filename="gazebo_plugins.xacro"/>
 
 </robot>
