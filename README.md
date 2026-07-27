@@ -21,7 +21,7 @@ This repository contains the structural description files (**URDF/XACRO**) for a
 ---
 ## Mechanical Design Summary
 
-The robot features a rigid **octagonal chassis** constructed from a **20 × 20 mm T-slot aluminum frame**, reinforced with **steel panels** to provide high structural strength, durability, and impact resistance during Sumo competitions.
+The robot features a rigid **octagonal chassis** constructed from a **20 20 T slot aluminum frame**, reinforced with **steel panels** to provide high structural strength, durability, and impact resistance during Sumo competitions.
 
 Its combat system combines both offensive and defensive mechanisms. A **front servo-actuated blade** delivers rapid attacking motions, while **two fixed side attack blades** increase the likelihood of making contact with opponents from multiple directions. For additional protection, a **rear electric defense module** helps shield the robot from attacks approaching from behind.
 
@@ -193,16 +193,18 @@ Install the following ROS 2 packages before running the project:
 ```text
 sumo_description/
 ├── launch/
+│   ├── display.launch.xml
+│   ├── gazebo.launch.xml
 ├── meshes/
 ├── rviz/
+│   ├── all STLs
 ├── urdf/
 │   ├── main.xacro
-│   ├── frame.xacro
-│   ├── motors.xacro
-│   ├── wheels.xacro
-│   ├── cameras.xacro
-│   ├── lidar.xacro
-│   └── axe.xacro
+│   ├── base_components.xacro
+│   ├── gazebo_plugins.xacro
+│   ├── motors_couplers.xacro
+│   ├── sumo.xacro
+│   ├── wheels.xacro 
 └── package.xml
 ```
 
