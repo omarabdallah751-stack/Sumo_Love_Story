@@ -227,7 +227,7 @@ source install/setup.bash
 Launch the robot visualization using:
 
 ```bash
-ros2 launch sumo_description <your_launch_file>.launch.py
+ros2 launch sumo_description <your_launch_file>.launch.xml
 ```
 
 The launch file automatically:
