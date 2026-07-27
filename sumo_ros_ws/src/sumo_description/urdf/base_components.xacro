@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- ========================================== -->
+  <!-- FRAME                                      -->
+  <!-- ========================================== -->
+  <link name="frame_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/frame.stl"/></geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/frame.stl"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="8.56573"/>
+      <inertia
+        ixx="0.110395032"
+        ixy="0.002575393"
+        ixz="-0.000739732"
+        iyy="0.109214245"
+        iyz="0.000890883"
+        izz="0.167411472"/>
+    </inertial>
+
+  </link>
+  <joint name="frame_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="frame_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ========================================== -->
+  <!-- LIDAR & SERVO                              -->
+  <!-- ========================================== -->
+  <link name="lidar_link">
+    <visual>
+      <origin xyz="0 -0.093257 -0.10115" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Lidar.stl"/></geometry>
+      <material name="dark_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.093257 -0.10115" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Lidar.stl"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 -0.002 0" rpy="0 0 0"/>
+      <mass value="0.07308"/>
+      <inertia
+          ixx="0.00003170690"
+          ixy="-0.00000653182"
+          ixz="-0.00000059522"
+          iyy="0.00007201277"
+          iyz="0.00000037954"
+          izz="0.00006152779"/>
+    </inertial>
+
+  </link>
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0 0.093257 0.10115" rpy="0 0 0"/>
+  </joint>
+
+  <link name="servo_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/servo.stl"/></geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/servo.stl"/></geometry>
+    </collision>
+
+  </link>
+  <joint name="servo_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="servo_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ========================================== -->
+  <!-- AXE                                        -->
+  <!-- ========================================== -->
+  <link name="axe_link">
+    <visual>
+      <origin xyz="0 0.015 -0.053" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/axe.stl"/></geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0.015 -0.053" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/axe.stl"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.0008 -0.148429 -0.027486" rpy="0 0 0"/>
+      <mass value="0.14877"/>
+      <inertia 
+          ixx="0.000757528" 
+          ixy="-0.000275357" 
+          ixz="-0.000000928" 
+          iyy="0.000178209" 
+          iyz="0.000003236" 
+          izz="0.000929424"/>
+    </inertial>
+
+  </link>
+  <joint name="axe_joint" type="revolute">
+    <parent link="servo_link"/>
+    <child link="axe_link"/>
+    <origin xyz="0 -0.015 0.053" rpy="0 0 0"/>
+    <limit effort="0.5" lower="0" upper="-1.57" velocity="1"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <!-- ========================================== -->
+  <!-- CAMERAS                                    -->
+  <!-- ========================================== -->
+  <!-- Camera 0 -->
+  <link name="camera_link">
+    <visual>
+      <origin xyz="${-1*c0_x} ${-1*c0_y} ${-1*c0_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="${-1*c0_x} ${-1*c0_y} ${-1*c0_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera.stl"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0.7854"/>
+      <mass value="0.05819"/>
+      <inertia
+          ixx="0.00001581321"
+          ixy="-0.00000000002"
+          ixz="0.00000000044"
+          iyy="0.00002574678"
+          iyz="0.00000189933"
+          izz="0.00002915852"/>
+    </inertial>
+
+  </link>
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin xyz="${c0_x} ${c0_y} ${c0_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Camera 1 -->
+  <link name="camera1_link">
+    <visual>
+      <origin xyz="${-1*c1_x} ${-1*c1_y} ${-1*c1_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera1.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="${-1*c1_x} ${-1*c1_y} ${-1*c1_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera1.stl"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0.7854"/>
+      <mass value="0.05819"/>
+      <inertia
+          ixx="0.00001581321"
+          ixy="-0.00000000002"
+          ixz="0.00000000044"
+          iyy="0.00002574678"
+          iyz="0.00000189933"
+          izz="0.00002915852"/>
+    </inertial>
+
+  </link>
+  <joint name="camera1_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera1_link"/>
+    <origin xyz="${c1_x} ${c1_y} ${c1_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Camera 2 -->
+  <link name="camera2_link">
+    <visual>
+      <origin xyz="${-1*c2_x} ${-1*c2_y} ${-1*c2_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera2.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="${-1*c2_x} ${-1*c2_y} ${-1*c2_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera2.stl"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0.7854"/>
+      <mass value="0.05819"/>
+      <inertia
+          ixx="0.00001581321"
+          ixy="-0.00000000002"
+          ixz="0.00000000044"
+          iyy="0.00002574678"
+          iyz="0.00000189933"
+          izz="0.00002915852"/>
+    </inertial>
+
+  </link>
+  <joint name="camera2_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera2_link"/>
+    <origin xyz="${c2_x} ${c2_y} ${c2_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Camera 3 -->
+  <link name="camera3_link">
+    <visual>
+      <origin xyz="${-1*c3_x} ${-1*c3_y} ${-1*c3_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera3.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="${-1*c3_x} ${-1*c3_y} ${-1*c3_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera3.stl"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0.7854"/>
+      <mass value="0.05819"/>
+      <inertia
+          ixx="0.00001581321"
+          ixy="-0.00000000002"
+          ixz="0.00000000044"
+          iyy="0.00002574678"
+          iyz="0.00000189933"
+          izz="0.00002915852"/>
+    </inertial>
+  </link>
+  <joint name="camera3_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera3_link"/>
+    <origin xyz="${c3_x} ${c3_y} ${c3_z}" rpy="0 0 0"/>
+  </joint>
+
+</robot>

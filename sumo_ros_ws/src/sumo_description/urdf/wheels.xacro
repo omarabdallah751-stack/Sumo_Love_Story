@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- ========================================== -->
+  <!-- WHEELS MACRO                               -->
+  <!-- ========================================== -->
+  
+  <xacro:macro name="wheel_properties" params="mesh_file wx_m wy_m wz_m">
+    <collision>
+      <origin xyz="${(wx_m + wy_m) * rot_45} ${(-wx_m + wy_m) * rot_45} ${wz_m}" rpy="0 0 -${rot_angle}"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/${mesh_file}"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.12331"/>
+      <inertia 
+          ixx="0.000055477" 
+          ixy="-0.000000002" 
+          ixz="0.000000120" 
+          iyy="0.000055009" 
+          iyz="-0.000000145" 
+          izz="0.000080222"/>
+    </inertial>
+  </xacro:macro>
+
+  <!-- Wheel 0 -->
+  <link name="wheel_link">
+    <visual>
+      <origin xyz="${(w0_m_x + w0_m_y) * rot_45} ${(-w0_m_x + w0_m_y) * rot_45} ${w0_m_z}" rpy="0 0 -${rot_angle}"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Wheel.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+    <xacro:wheel_properties mesh_file="Wheel.stl" wx_m="${w0_m_x}" wy_m="${w0_m_y}" wz_m="${w0_m_z}"/>
+  </link>
+  <joint name="wheel_joint" type="continuous">
+    <parent link="coupler_link"/>
+    <child link="wheel_link"/>
+    <origin xyz="${c0_m_x - w0_m_x} ${c0_m_y - w0_m_y} ${c0_m_z - w0_m_z}" rpy="0 0 ${rot_angle}"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Wheel 1 -->
+  <link name="wheel1_link">
+    <visual>
+      <origin xyz="${(w1_m_x + w1_m_y) * rot_45} ${(-w1_m_x + w1_m_y) * rot_45} ${w1_m_z}" rpy="0 0 -${rot_angle}"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Wheel1.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+    <xacro:wheel_properties mesh_file="Wheel1.stl" wx_m="${w1_m_x}" wy_m="${w1_m_y}" wz_m="${w1_m_z}"/>
+  </link>
+  <joint name="wheel1_joint" type="continuous">
+    <parent link="coupler1_link"/>
+    <child link="wheel1_link"/>
+    <origin xyz="${c1_m_x - w1_m_x} ${c1_m_y - w1_m_y} ${c1_m_z - w1_m_z}" rpy="0 0 ${rot_angle}"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Wheel 2 -->
+  <link name="wheel2_link">
+    <visual>
+      <origin xyz="${(w2_m_x + w2_m_y) * rot_45} ${(-w2_m_x + w2_m_y) * rot_45} ${w2_m_z}" rpy="0 0 -${rot_angle}"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Wheel2.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+    <xacro:wheel_properties mesh_file="Wheel2.stl" wx_m="${w2_m_x}" wy_m="${w2_m_y}" wz_m="${w2_m_z}"/>
+  </link>
+  <joint name="wheel2_joint" type="continuous">
+    <parent link="coupler2_link"/>
+    <child link="wheel2_link"/>
+    <origin xyz="${c2_m_x - w2_m_x} ${c2_m_y - w2_m_y} ${c2_m_z - w2_m_z}" rpy="0 0 ${rot_angle}"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <!-- Wheel 3 -->
+  <link name="wheel3_link">
+    <visual>
+      <origin xyz="${(w3_m_x + w3_m_y) * rot_45} ${(-w3_m_x + w3_m_y) * rot_45} ${w3_m_z}" rpy="0 0 -${rot_angle}"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Wheel3.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+    <xacro:wheel_properties mesh_file="Wheel3.stl" wx_m="${w3_m_x}" wy_m="${w3_m_y}" wz_m="${w3_m_z}"/>
+  </link>
+  <joint name="wheel3_joint" type="continuous">
+    <parent link="coupler3_link"/>
+    <child link="wheel3_link"/>
+    <origin xyz="${c3_m_x - w3_m_x} ${c3_m_y - w3_m_y} ${c3_m_z - w3_m_z}" rpy="0 0 ${rot_angle}"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+</robot>

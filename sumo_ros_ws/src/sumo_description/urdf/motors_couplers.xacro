@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- ========================================== -->
+  <!-- MOTORS                                     -->
+  <!-- ========================================== -->
+  
+<xacro:macro name="motor_properties" params="mesh_file origin_xyz">
+    <collision>
+      <origin xyz="${origin_xyz}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/${mesh_file}"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.165"/>
+      <inertia 
+          ixx="0.000012258" 
+          ixy="-0.000000003" 
+          ixz="0" 
+          iyy="0.000040644" 
+          iyz="0" 
+          izz="0.000040639"/>
+    </inertial>
+  </xacro:macro>
+
+  <!-- Motor 0 -->
+  <link name="motor_link">
+    <visual>
+      <origin xyz="${-m0_j_x} ${-m0_j_y} ${-m0_j_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Motor.stl"/></geometry>
+      <material name="dark_grey"/>
+    </visual>
+    <xacro:motor_properties mesh_file="Motor.stl" origin_xyz="${-m0_j_x} ${-m0_j_y} ${-m0_j_z}"/>
+  </link>
+  <joint name="motor_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor_link"/>
+    <origin xyz="${m0_j_x} ${m0_j_y} ${m0_j_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Motor 1 -->
+  <link name="motor1_link">
+    <visual>
+      <origin xyz="${-m1_j_x} ${-m1_j_y} ${-m1_j_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Motor1.stl"/></geometry>
+      <material name="dark_grey"/>
+    </visual>
+    <xacro:motor_properties mesh_file="Motor1.stl" origin_xyz="${-m1_j_x} ${-m1_j_y} ${-m1_j_z}"/>
+  </link>
+  <joint name="motor1_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor1_link"/>
+    <origin xyz="${m1_j_x} ${m1_j_y} ${m1_j_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Motor 2 -->
+  <link name="motor2_link">
+    <visual>
+      <origin xyz="${-m2_j_x} ${-m2_j_y} ${-m2_j_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Motor2.stl"/></geometry>
+      <material name="dark_grey"/>
+    </visual>
+    <xacro:motor_properties mesh_file="Motor2.stl" origin_xyz="${-m2_j_x} ${-m2_j_y} ${-m2_j_z}"/>
+  </link>
+  <joint name="motor2_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor2_link"/>
+    <origin xyz="${m2_j_x} ${m2_j_y} ${m2_j_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Motor 3 -->
+  <link name="motor3_link">
+    <visual>
+      <origin xyz="${-m3_j_x} ${-m3_j_y} ${-m3_j_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Motor3.stl"/></geometry>
+      <material name="dark_grey"/>
+    </visual>
+    <xacro:motor_properties mesh_file="Motor3.stl" origin_xyz="${-m3_j_x} ${-m3_j_y} ${-m3_j_z}"/>
+  </link>
+  <joint name="motor3_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor3_link"/>
+    <origin xyz="${m3_j_x} ${m3_j_y} ${m3_j_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ========================================== -->
+  <!-- COUPLERS                                   -->
+  <!-- ========================================== -->
+  
+  <!-- Modular macro for coupler collision without inertia -->
+  <xacro:macro name="coupler_collision" params="mesh_file origin_xyz">
+    <collision>
+      <origin xyz="${origin_xyz}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/${mesh_file}"/></geometry>
+    </collision>
+  </xacro:macro>
+
+  <!-- Coupler 0 -->
+  <link name="coupler_link">
+    <visual>
+      <origin xyz="${c0_m_x} ${c0_m_y} ${c0_m_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Coupler.stl"/></geometry>
+      <material name="grey"/>
+    </visual>
+    <xacro:coupler_collision mesh_file="Coupler.stl" origin_xyz="${c0_m_x} ${c0_m_y} ${c0_m_z}"/>
+  </link>
+  <joint name="coupler_joint" type="fixed">
+    <parent link="motor_link"/>
+    <child link="coupler_link"/>
+    <origin xyz="${c0_j_x} ${c0_j_y} ${c0_j_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Coupler 1 -->
+  <link name="coupler1_link">
+    <visual>
+      <origin xyz="${c1_m_x} ${c1_m_y} ${c1_m_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Coupler1.stl"/></geometry>
+      <material name="grey"/>
+    </visual>
+    <xacro:coupler_collision mesh_file="Coupler1.stl" origin_xyz="${c1_m_x} ${c1_m_y} ${c1_m_z}"/>
+  </link>
+  <joint name="coupler1_joint" type="fixed">
+    <parent link="motor1_link"/>
+    <child link="coupler1_link"/>
+    <origin xyz="${c1_j_x} ${c1_j_y} ${c1_j_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Coupler 2 -->
+  <link name="coupler2_link">
+    <visual>
+      <origin xyz="${c2_m_x} ${c2_m_y} ${c2_m_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Coupler2.stl"/></geometry>
+      <material name="grey"/>
+    </visual>
+    <xacro:coupler_collision mesh_file="Coupler2.stl" origin_xyz="${c2_m_x} ${c2_m_y} ${c2_m_z}"/>
+  </link>
+  <joint name="coupler2_joint" type="fixed">
+    <parent link="motor2_link"/>
+    <child link="coupler2_link"/>
+    <origin xyz="${c2_j_x} ${c2_j_y} ${c2_j_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Coupler 3 -->
+  <link name="coupler3_link">
+    <visual>
+      <origin xyz="${c3_m_x} ${c3_m_y} ${c3_m_z}" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Coupler3.stl"/></geometry>
+      <material name="grey"/>
+    </visual>
+    <xacro:coupler_collision mesh_file="Coupler3.stl" origin_xyz="${c3_m_x} ${c3_m_y} ${c3_m_z}"/>
+  </link>
+  <joint name="coupler3_joint" type="fixed">
+    <parent link="motor3_link"/>
+    <child link="coupler3_link"/>
+    <origin xyz="${c3_j_x} ${c3_j_y} ${c3_j_z}" rpy="0 0 0"/>
+  </joint>
+
+</robot>

@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+<robot name="sumo_robot_visual_test">
+
+  <material name="grey"><color rgba="0.5 0.5 0.5 1.0"/></material>
+  <material name="dark_grey"><color rgba="0.2 0.2 0.2 1.0"/></material>
+  <material name="red"><color rgba="0.8 0.1 0.1 1.0"/></material>
+  <material name="black"><color rgba="0.05 0.05 0.05 1.0"/></material>
+  <material name="blue"><color rgba="0.1 0.1 0.8 1.0"/></material>
+  <link name="base_link"></link>
+
+  <!-- ========================================== -->
+  <!-- FRAME -->
+  <!-- ========================================== -->
+  <link name="frame_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/frame.stl"/></geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="frame_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="frame_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ========================================== -->
+  <!-- AXE -->
+  <!-- ========================================== -->
+  <link name="axe_link">
+    <visual>
+      <origin xyz="0 0.015 -0.053" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/axe.stl"/></geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+  <joint name="axe_joint" type="revolute">
+    <parent link="servo_link"/>
+    <child link="axe_link"/>
+    <origin xyz="0 -0.015 0.053" rpy="0 0 0"/>
+    <limit effort="0.5" lower="0" upper="-1.57" velocity="1"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <!-- ========================================== -->
+  <!-- LIDAR & SERVO -->
+  <!-- ========================================== -->
+  <link name="lidar_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Lidar.stl"/></geometry>
+      <material name="dark_grey"/>
+    </visual>
+  </link>
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="servo_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/servo.stl"/></geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+  <joint name="servo_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="servo_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ========================================== -->
+  <!-- CAMERAS -->
+  <!-- ========================================== -->
+  <!-- Camera 0 -->
+  <link name="camera_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Camera 1 -->
+  <link name="camera1_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera1.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="camera1_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera1_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Camera 2 -->
+  <link name="camera2_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera2.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="camera2_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera2_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Camera 3 -->
+  <link name="camera3_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/camera3.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="camera3_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera3_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ========================================== -->
+  <!-- COUPLERS -->
+  <!-- ========================================== -->
+  <!-- Coupler 0 -->
+  <link name="coupler_link">
+    <visual>
+      <origin xyz="0.109325 -0.099423 0.095" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Coupler.stl"/></geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="coupler_joint" type="fixed">
+    <parent link="motor_link"/>
+    <child link="coupler_link"/>
+    <origin xyz="-0.021211 0.019851 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Coupler 1 -->
+  <link name="coupler1_link">
+    <visual>
+      <origin xyz="-0.11283 0.12274 0.094661" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Coupler1.stl"/></geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="coupler1_joint" type="fixed">
+    <parent link="motor1_link"/>
+    <child link="coupler1_link"/>
+    <origin xyz="0.020031 -0.02139 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Coupler 2 -->
+  <link name="coupler2_link">
+    <visual>
+      <origin xyz="0.10758 0.12333 0.095" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Coupler2.stl"/></geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="coupler2_joint" type="fixed">
+    <parent link="motor2_link"/>
+    <child link="coupler2_link"/>
+    <origin xyz="-0.019367 -0.02139 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Coupler 3 -->
+  <link name="coupler3_link">
+    <visual>
+      <origin xyz="-0.11343 -0.09967 0.095" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Coupler3.stl"/></geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="coupler3_joint" type="fixed">
+    <parent link="motor3_link"/>
+    <child link="coupler3_link"/>
+    <origin xyz="0.02059 0.020564 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ========================================== -->
+  <!-- MOTORS -->
+  <!-- ========================================== -->
+  <!-- Motor 0 -->
+  <link name="motor_link">
+    <visual>
+      <origin xyz="0.08811 -0.079572 0.095" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Motor.stl"/></geometry>
+      <material name="dark_grey"/>
+    </visual>
+  </link>
+  <joint name="motor_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor_link"/>
+    <origin xyz="-0.08811 0.079572 -0.095" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Motor 1 -->
+  <link name="motor1_link">
+    <visual>
+      <origin xyz="-0.09279 0.1013 0.095" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Motor1.stl"/></geometry>
+      <material name="dark_grey"/>
+    </visual>
+  </link>
+  <joint name="motor1_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor1_link"/>
+    <origin xyz="0.09279 -0.1013 -0.095" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Motor 2 -->
+  <link name="motor2_link">
+    <visual>
+      <origin xyz="0.088213 0.10194 0.095" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Motor2.stl"/></geometry>
+      <material name="dark_grey"/>
+    </visual>
+  </link>
+  <joint name="motor2_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor2_link"/>
+    <origin xyz="-0.088213 -0.10194 -0.095" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Motor 3 -->
+  <link name="motor3_link">
+    <visual>
+      <origin xyz="-0.09284 -0.079111 0.095" rpy="0 0 0"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Motor3.stl"/></geometry>
+      <material name="dark_grey"/>
+    </visual>
+  </link>
+  <joint name="motor3_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor3_link"/>
+    <origin xyz="0.09284 0.079111 -0.095" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ========================================== -->
+  <!-- WHEELS -->
+  <!-- ========================================== -->
+  <!-- Wheel 0 -->
+  <link name="wheel_link">
+    <visual>
+      <origin xyz="0.006 -0.16 0.094" rpy="0 0 -0.785"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Wheel.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="wheel_joint" type="continuous">
+    <parent link="coupler_link"/>
+    <child link="wheel_link"/>
+    <origin xyz="-0.0096 0.010407 0.001441" rpy="0 0 0.785"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Wheel 1 -->
+  <link name="wheel1_link">
+    <visual>
+      <origin xyz="0.00643 0.18072 0.095" rpy="0 0 -0.785"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Wheel1.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="wheel1_joint" type="continuous">
+    <parent link="coupler1_link"/>
+    <child link="wheel1_link"/>
+    <origin xyz="0.01041 -0.0096 -0.000258" rpy="0 0 0.785"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Wheel 2 -->
+  <link name="wheel2_link">
+    <visual>
+      <origin xyz="0.17740 0.01061 0.095" rpy="0 0 -0.785"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Wheel2.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="wheel2_joint" type="continuous">
+    <parent link="coupler2_link"/>
+    <child link="wheel2_link"/>
+    <origin xyz="-0.01036 -0.00962 0.001005" rpy="0 0 0.785"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <!-- Wheel 3 -->
+  <link name="wheel3_link">
+    <visual>
+      <origin xyz="-0.16480 0.00988 0.095" rpy="0 0 -0.785"/>
+      <geometry><mesh filename="package://sumo_description/meshes_fixed/Wheel3.stl"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="wheel3_joint" type="continuous">
+    <parent link="coupler3_link"/>
+    <child link="wheel3_link"/>
+    <origin xyz="0.01009 0.009875 -0.000877" rpy="0 0 0.785"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+</robot>

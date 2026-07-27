@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<robot name="sumo_robot_visual_test" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- ========================================== -->
+  <!-- DYNAMIC MATH CONSTANTS                     -->
+  <!-- ========================================== -->
+  <xacro:property name="rot_angle" value="0.785"/> <!-- 45 degrees in radians -->
+  <xacro:property name="rot_45" value="0.707106"/> <!-- cos(45) and sin(45) -->
+
+  <!-- ========================================== -->
+  <!-- MOTORS ABSOLUTE POSITIONS (JOINT ORIGINS)  -->
+  <!-- ========================================== -->
+  <xacro:property name="m0_j_x" value="-0.08811"/>  <xacro:property name="m0_j_y" value="0.079572"/>  <xacro:property name="m0_j_z" value="-0.095"/>
+  <xacro:property name="m1_j_x" value="0.09279"/>   <xacro:property name="m1_j_y" value="-0.1013"/>   <xacro:property name="m1_j_z" value="-0.095"/>
+  <xacro:property name="m2_j_x" value="-0.088213"/> <xacro:property name="m2_j_y" value="-0.10194"/>  <xacro:property name="m2_j_z" value="-0.095"/>
+  <xacro:property name="m3_j_x" value="0.09284"/>   <xacro:property name="m3_j_y" value="0.079111"/>  <xacro:property name="m3_j_z" value="-0.095"/>
+
+  <!-- ========================================== -->
+  <!-- COUPLERS OFFSETS & MESH ORIGINS            -->
+  <!-- ========================================== -->
+  <!-- Couplers Joint Offsets (Relative to Motors) -->
+  <xacro:property name="c0_j_x" value="-0.021211"/> <xacro:property name="c0_j_y" value="0.019851"/>  <xacro:property name="c0_j_z" value="0"/>
+  <xacro:property name="c1_j_x" value="0.020031"/>  <xacro:property name="c1_j_y" value="-0.02139"/>  <xacro:property name="c1_j_z" value="0"/>
+  <xacro:property name="c2_j_x" value="-0.019367"/> <xacro:property name="c2_j_y" value="-0.02139"/>  <xacro:property name="c2_j_z" value="0"/>
+  <xacro:property name="c3_j_x" value="0.02059"/>   <xacro:property name="c3_j_y" value="0.020564"/>  <xacro:property name="c3_j_z" value="0"/>
+
+  <!-- Couplers Original Mesh Visual Origins -->
+  <xacro:property name="c0_m_x" value="0.109325"/> <xacro:property name="c0_m_y" value="-0.099423"/> <xacro:property name="c0_m_z" value="0.095"/>
+  <xacro:property name="c1_m_x" value="-0.11283"/> <xacro:property name="c1_m_y" value="0.12274"/>   <xacro:property name="c1_m_z" value="0.094661"/>
+  <xacro:property name="c2_m_x" value="0.10758"/>  <xacro:property name="c2_m_y" value="0.12333"/>   <xacro:property name="c2_m_z" value="0.095"/>
+  <xacro:property name="c3_m_x" value="-0.11343"/> <xacro:property name="c3_m_y" value="-0.09967"/>  <xacro:property name="c3_m_z" value="0.095"/>
+
+  <!-- ========================================== -->
+  <!-- WHEELS ORIGINAL MESH ORIGINS               -->
+  <!-- ========================================== -->
+  <!-- These are the raw STL coordinates before the 45-degree rotation -->
+  <xacro:property name="w0_m_x" value="0.118925"/> <xacro:property name="w0_m_y" value="-0.10983"/> <xacro:property name="w0_m_z" value="0.093559"/>
+  <xacro:property name="w1_m_x" value="-0.12324"/> <xacro:property name="w1_m_y" value="0.13234"/>  <xacro:property name="w1_m_z" value="0.095"/>
+  <xacro:property name="w2_m_x" value="0.11794"/>  <xacro:property name="w2_m_y" value="0.13295"/>  <xacro:property name="w2_m_z" value="0.095"/>
+  <xacro:property name="w3_m_x" value="-0.12352"/> <xacro:property name="w3_m_y" value="-0.10955"/> <xacro:property name="w3_m_z" value="0.095"/>
+
+  <!-- ========================================== -->
+  <!-- Cameras Joints             -->
+  <!-- ========================================== -->
+  <xacro:property name="c0_x" value="0.10098"/> <xacro:property name="c0_y" value="-0.11001"/> <xacro:property name="c0_z" value="-0.005098"/> 
+  <xacro:property name="c1_x" value="-0.095221"/> <xacro:property name="c1_y" value="0.087629"/> <xacro:property name="c1_z" value="-0.005301"/> 
+  <xacro:property name="c2_x" value="-0.096819"/> <xacro:property name="c2_y" value="-0.10944"/> <xacro:property name="c2_z" value="-0.005301"/> 
+  <xacro:property name="c3_x" value="0.10072"/> <xacro:property name="c3_y" value="0.088093"/> <xacro:property name="c3_z" value="-0.005301"/> 
+
+  <!-- ========================================== -->
+  <!-- MATERIALS                                  -->
+  <!-- ========================================== -->
+  <material name="grey"><color rgba="0.5 0.5 0.5 1.0"/></material>
+  <material name="dark_grey"><color rgba="0.2 0.2 0.2 1.0"/></material>
+  <material name="red"><color rgba="0.8 0.1 0.1 1.0"/></material>
+  <material name="black"><color rgba="0.05 0.05 0.05 1.0"/></material>
+  <material name="blue"><color rgba="0.1 0.1 0.8 1.0"/></material>
+
+  <!-- Base Link -->
+  <link name="base_link"></link>
+  <link name="base_footprint_link"/>
+
+  <!-- ========================================== -->
+  <!-- INCLUDES FOR OTHER XACRO FILES             -->
+  <!-- ========================================== -->
+  <xacro:include filename="base_components.xacro"/>
+  <xacro:include filename="motors_couplers.xacro"/>
+  <xacro:include filename="wheels.xacro"/>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint_link"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.095" rpy="0 0 0"/>
+  </joint>
+
+</robot>
