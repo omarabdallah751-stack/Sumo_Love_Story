@@ -1,30 +1,26 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <!-- 1. Differential Drive Plugin -->
+    <!-- Control each wheel joint velocity independently -->
     <gazebo>
-        <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
-            <!-- Left Wheels -->
-            <left_joint>wheel1_joint</left_joint>
-            <left_joint>wheel2_joint</left_joint>
-            
-            <!-- Right Wheels -->
-            <right_joint>wheel_joint</right_joint>
-            <right_joint>wheel3_joint</right_joint>
-            
-            <!-- Kinematics -->
-            <wheel_separation>0.242</wheel_separation>
-            <wheel_radius>0.032</wheel_radius>
-            
-            <topic>/cmd_vel</topic>
-            <odom_topic>/odom</odom_topic>
-            <frame_id>odom</frame_id>
-            <child_frame_id>base_footprint_link</child_frame_id>
-            <odom_publish_frequency>50</odom_publish_frequency>
+        <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
+            <joint_name>wheel3_joint</joint_name> 
+            <topic>/wheel_bl_cmd</topic>
+        </plugin>
+        <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
+            <joint_name>wheel1_joint</joint_name> 
+            <topic>/wheel_fl_cmd</topic>
+        </plugin>
+        <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
+            <joint_name>wheel_joint</joint_name>  
+            <topic>/wheel_br_cmd</topic>
+        </plugin>
+        <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
+            <joint_name>wheel2_joint</joint_name> 
+            <topic>/wheel_fr_cmd</topic>
         </plugin>
     </gazebo>
 
-    <!-- 2. Joint State Publisher Plugin -->
     <gazebo>
         <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
             <topic>/joint_states</topic>
@@ -36,4 +32,47 @@
         </plugin>
     </gazebo>
 
+    <gazebo>
+        <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+            <render_engine>ogre2</render_engine>
+        </plugin>
+    </gazebo>
+
+    <!-- ========================================== -->
+    <!-- CAMERA PLUGIN MACRO                        -->
+    <!-- ========================================== -->
+    <xacro:macro name="gazebo_camera_plugin" params="link_name topic_name optical_frame">
+        <gazebo reference="${link_name}">
+            <sensor name="${link_name}_sensor" type="camera">
+                <camera>
+                    <horizontal_fov>1.3962634</horizontal_fov>
+                    <image>
+                        <width>640</width>
+                        <height>480</height>
+                        <format>R8G8B8</format>
+                    </image>
+                    <clip>
+                        <near>0.1</near>
+                        <far>15</far>
+                    </clip>
+                    <noise>
+                        <type>gaussian</type>
+                        <mean>0.0</mean>
+                        <stddev>0.007</stddev>
+                    </noise>
+                    <optical_frame_id>${optical_frame}</optical_frame_id>
+                    <camera_info_topic>${topic_name}/camera_info</camera_info_topic>
+                </camera>
+                <always_on>1</always_on>
+                <update_rate>20</update_rate>
+                <visualize>true</visualize>
+                <topic>${topic_name}/image_raw</topic>            
+            </sensor>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:gazebo_camera_plugin link_name="camera0_sensor_link" topic_name="camera0" optical_frame="camera_link_optical"/>
+    <xacro:gazebo_camera_plugin link_name="camera1_sensor_link" topic_name="camera1" optical_frame="camera1_link_optical"/>
+    <xacro:gazebo_camera_plugin link_name="camera2_sensor_link" topic_name="camera2" optical_frame="camera2_link_optical"/>
+    <xacro:gazebo_camera_plugin link_name="camera3_sensor_link" topic_name="camera3" optical_frame="camera3_link_optical"/>
 </robot>

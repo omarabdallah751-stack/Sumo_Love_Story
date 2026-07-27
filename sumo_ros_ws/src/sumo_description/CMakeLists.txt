@@ -7,9 +7,16 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+
+# Install directories (meshes, urdf, launch, etc.)
 install(
-  DIRECTORY urdf meshes_fixed rviz launch config
+  DIRECTORY urdf meshes_fixed rviz launch config world
   DESTINATION share/${PROJECT_NAME}/
+)
+
+install(
+  PROGRAMS scripts/kinematics_node.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_package()

@@ -227,4 +227,103 @@
     <origin xyz="${c3_x} ${c3_y} ${c3_z}" rpy="0 0 0"/>
   </joint>
 
+<!-- ========================================== -->
+  <!-- SENSOR & OPTICAL LINKS                     -->
+  <!-- ========================================== -->
+
+<link name="camera0_sensor_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/> 
+      <geometry>
+        <box size="0.03 0.03 0.03"/> 
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+  
+  <joint name="camera0_sensor_joint" type="fixed">
+      <parent link="frame_link"/>
+      <child link="camera0_sensor_link"/>
+      <origin xyz="${c0_x} ${c0_y} ${c0_z}" rpy="0 0 ${-pi/4}"/>
+  </joint>
+  
+  <link name="camera_link_optical"/>
+  <joint name="camera_optical_joint" type="fixed">
+      <parent link="camera0_sensor_link"/>
+      <child link="camera_link_optical"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+
+<link name="camera1_sensor_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/> 
+      <geometry>
+        <box size="0.03 0.03 0.03"/> 
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+  
+  <joint name="camera1_sensor_joint" type="fixed">
+      <parent link="frame_link"/>
+      <child link="camera1_sensor_link"/>
+      <origin xyz="${c1_x} ${c1_y} ${c1_z}" rpy="0 0 ${(-pi/4) + pi}"/>
+  </joint>
+  
+  <link name="camera1_link_optical"/>
+  
+  <joint name="camera1_optical_joint" type="fixed">
+      <parent link="camera1_sensor_link"/>
+      <child link="camera1_link_optical"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="camera2_sensor_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/> 
+      <geometry>
+        <box size="0.03 0.03 0.03"/> 
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+  
+  <joint name="camera2_sensor_joint" type="fixed">
+      <parent link="frame_link"/>
+      <child link="camera2_sensor_link"/>
+      <origin xyz="${c2_x} ${c2_y} ${c2_z}" rpy="0 0 ${5*pi/4}"/>
+  </joint>
+  
+  <link name="camera2_link_optical"/>
+  
+  <joint name="camera2_optical_joint" type="fixed">
+      <parent link="camera2_sensor_link"/>
+      <child link="camera2_link_optical"/>
+      <origin xyz="0 0 0" rpy="0 0 ${-pi/2}"/>
+  </joint>
+
+    <link name="camera3_sensor_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/> 
+      <geometry>
+        <box size="0.03 0.03 0.03"/> 
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+  
+  <joint name="camera3_sensor_joint" type="fixed">
+      <parent link="frame_link"/>
+      <child link="camera3_sensor_link"/>
+      <origin xyz="${c3_x} ${c3_y} ${c3_z}" rpy="0 0 ${9*pi/4}"/>
+  </joint>
+  
+  <link name="camera3_link_optical"/>
+  
+  <joint name="camera3_optical_joint" type="fixed">
+      <parent link="camera3_sensor_link"/>
+      <child link="camera3_link_optical"/>
+      <origin xyz="0 0 0" rpy="0 0 ${-pi/2}"/>
+  </joint>
 </robot>

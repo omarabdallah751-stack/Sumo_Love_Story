@@ -6,6 +6,12 @@
   <!-- ========================================== -->
   <xacro:property name="rot_angle" value="0.785"/> <!-- 45 degrees in radians -->
   <xacro:property name="rot_45" value="0.707106"/> <!-- cos(45) and sin(45) -->
+  <!-- Camera Yaws (in radians) -->
+  <!-- Front: 0, Left: 1.5708, Back: 3.1416, Right: -1.5708 -->
+  <xacro:property name="c0_yaw" value="0"/>       <!-- أمامي -->
+  <xacro:property name="c1_yaw" value="1.5708"/>  <!-- يسار -->
+  <xacro:property name="c2_yaw" value="1.5708"/>  <!-- خلفي -->
+  <xacro:property name="c3_yaw" value="-1.5708"/> <!-- يمين -->
 
   <!-- ========================================== -->
   <!-- MOTORS ABSOLUTE POSITIONS (JOINT ORIGINS)  -->
